@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const slugify = require('slugify');
-const marked = require('marked');
-const createDomPurify = require('dompurify');
-const { JSDOM } = require('jsdom');
-const dompurify = createDomPurify(new JSDOM().window);
 
 const PostSchema = new Schema({
   title: { type: String, required: true },

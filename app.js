@@ -2,6 +2,7 @@ require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var cors = require('cors');
+var helmet = require('helmet');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -60,6 +61,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(cors());
+app.use(helmet());
 app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());
@@ -85,6 +87,12 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.get(/^((?!(api)).)*$/, (req, res) => {
+//     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+//   });
+// }
 
 // App launch
 app.listen(port, () => {
